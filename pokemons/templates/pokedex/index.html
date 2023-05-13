@@ -1,0 +1,15 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+
+<h1>POKEDEX</h1>
+
+{% for pokemon in pokemons  %}
+
+<h2> {{ pokemon.name }}  </h2>
+
+<img src="{{pokemon.image_default}}" alt="{{ pokemon.name }}">
+
+{% endfor %}
+
+{% endblock content %}
