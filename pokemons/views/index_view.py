@@ -1,35 +1,63 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 import requests
 
 
 def index(request):
-    response_base = requests.get("https://pokeapi.co/api/v2/pokemon/")
-    pokemons = []
+    MAX_OFFSET = 144  # max offset in api
+    LIMIT = 16  # limit per page / number to advance in endpoint
+    LIMIT_REVERSE = (LIMIT * -1)
 
-    for poke_id in range(0, 20):
-        # getting pokemon data
-        response_pokemon = requests.get(
-            f"https://pokeapi.co/api/v2/pokemon/{poke_id + 1}/"
+    offset = int(request.GET.get('offset', 0))
+
+    if not offset % 16 == 0 or offset > MAX_OFFSET:  # validating offset
+        return redirect('pokedex:index')
+
+    # base endpoint to get pokemons
+    endpoint_base = requests.get(
+        f"https://pokeapi.co/api/v2/pokemon/?limit={LIMIT}&offset={offset}"
         )
 
-        pokemon_data = {
-            'id': poke_id,
-            'name': response_base.json()['results'][poke_id]['name'],
-            'image_default':
-                response_pokemon.json()['sprites']['front_default'],
-        }
-        pokemons.append(pokemon_data)
+    results = endpoint_base.json()['results']  # getting the results key
 
-    paginator = Paginator(pokemons, 6)
+    pokemons = []
+
+    for result in results:
+        pokemon_name = result['name']
+
+        endpoint_pokemon = requests.get(
+            f"https://pokeapi.co/api/v2/pokemon/{pokemon_name}/"
+            )
+
+        pokemon_image = endpoint_pokemon.json()['sprites']['front_default']
+        pokemon_id = endpoint_pokemon.json()['id']
+
+        pokemon_data = {  # inserting data in the dict
+                'poke_id': pokemon_id,
+                'name': pokemon_name,
+                'image_default': pokemon_image,
+            }
+
+        pokemons.append(pokemon_data)  # appending to a list
+
+    # paginator and calculating the number of pages
+    paginator = Paginator(pokemons, 1)
+    paginator.count = int(MAX_OFFSET / LIMIT) + 1
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    print(response_base.json())
+
+    if offset == MAX_OFFSET:  # using pop to remove pokemons that i didn't want
+        for i in range(9):
+            pokemons.pop()
 
     context = {
         'pokemons': pokemons,
         'page_obj': page_obj,
         'site_title': 'Pokemons |',
+        'offset': offset,
+        'max_offset': MAX_OFFSET,
+        'limit': LIMIT,
+        'limit_reverse': LIMIT_REVERSE,
     }
 
     return render(request, 'pokedex/index.html', context)
