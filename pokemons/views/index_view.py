@@ -1,6 +1,17 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 import requests
+from cachetools import cached, TTLCache
+
+cache = TTLCache(maxsize=128, ttl=3600)  # creating cache
+
+
+@cached(cache)  # saving results in cache
+def get_pokemon_data(pokemon_name):
+    endpoint_pokemon = requests.get(  # getting a unique pokemon using name
+            f"https://pokeapi.co/api/v2/pokemon/{pokemon_name}/"
+            )
+    return endpoint_pokemon.json()
 
 
 def index(request):
@@ -10,7 +21,7 @@ def index(request):
 
     offset = int(request.GET.get('offset', 0))
 
-    if not offset % 16 == 0 or offset > MAX_OFFSET:  # validating offset
+    if not offset % LIMIT == 0 or offset > MAX_OFFSET:  # validating offset
         return redirect('pokedex:index')
 
     # base endpoint to get pokemons
@@ -25,14 +36,12 @@ def index(request):
     for result in results:
         pokemon_name = result['name']
 
-        endpoint_pokemon = requests.get(
-            f"https://pokeapi.co/api/v2/pokemon/{pokemon_name}/"
-            )
+        # getting pokemon data
+        pokemon_data = get_pokemon_data(pokemon_name)
+        pokemon_image = pokemon_data['sprites']['front_default']
+        pokemon_id = pokemon_data['id']  # getting the id
 
-        pokemon_image = endpoint_pokemon.json()['sprites']['front_default']
-        pokemon_id = endpoint_pokemon.json()['id']
-
-        pokemon_data = {  # inserting data in the dict
+        pokemon_data = {  # creating and inserting data in the dict
                 'poke_id': pokemon_id,
                 'name': pokemon_name,
                 'image_default': pokemon_image,
