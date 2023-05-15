@@ -1,4 +1,156 @@
-body{
-    background: #2c2c2c;
-    color: #eee;
+body {
+  background: #444444;
+  color: #000;
+  margin: 0;
+  padding: 0;
 }
+
+.cards {
+  margin: 0 auto;
+  max-width: 1200px;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: auto;
+  gap: 15px;
+  font-family: sans-serif;
+  padding: 3.5rem 0 0 1rem;
+}
+
+.cards a{
+  text-decoration: none;
+  color: #eee;
+  padding-right: 10px;
+}
+
+.poke-card {
+  width: 210px;
+  height: 250px;
+  background: #fffdfdd8;
+  text-align: center;
+  border-radius: 11px;
+  box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.918);
+  transition: .3s;
+}
+
+.poke-card:hover{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.poke-image {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.poke-content {
+  color: #ffffff;
+  padding: 35px;
+  text-transform: capitalize;
+}
+
+.poke-content h1{
+  font-size: 17px;
+}
+
+.poke-content span{
+  font-size: 14px;
+}
+
+
+/* customising the colors of the cards */
+
+.poke-card.grass{
+  background: #93db8dc9;
+}
+
+.poke-card.fire{
+  background: #db8d8dc9;
+}
+
+.poke-card.water{
+  background: #669cdae3;
+}
+
+.poke-card.bug{
+  background: #dbb78dc9;
+}
+
+.poke-card.normal{
+  background: #a3a3a3;
+}
+
+.poke-card.poison{
+  background: #7a4f97c9;
+}
+
+.poke-card.electric{
+  background: #ecdc7dc9;
+}
+
+.poke-card.ground{
+  background: #967e68c9;
+}
+
+.poke-card.fairy{
+  background: #ff98f6c9;
+}
+
+.poke-card.fighting{
+  background: #5a3131;
+}
+
+.poke-card.psychic{
+  background: #f0b6ebc9;
+}
+
+.poke-card.rock{
+  background: #7a5b3e;
+}
+
+.poke-card.ghost{
+  background: #783e9e;
+}
+
+.poke-card.ice{
+  background: #91c4ff;
+}
+
+.poke-card.dragon{
+  background: #008080;
+}
+
+/* pagination starts */
+
+.pagination {
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination-number {
+  padding: 12px 17px;
+  border-radius: 2px;
+  color: #fff;
+  background-color: #fff;
+}
+
+.pagination-action, .pagination span {
+  margin: 0 2px;
+  display: flex;
+  padding: 1px 2px;
+  color: #fff;
+  font-size: 1.3em;
+  align-items: center;
+}
+
+.pagination-action:hover {
+  color: #fd4740;
+}
+

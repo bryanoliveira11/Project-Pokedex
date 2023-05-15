@@ -1,19 +1,26 @@
-{% if page_obj %}
-  <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}&offset={{offset|add:limit_reverse}}">previous</a>
-        {% endif %}
+<div class="pagination">
+  {% if page_obj.has_previous %}
+  <a class="pagination-action" href="?page=1">
+    <i class="fa-solid fa-angles-left"></i>
+  <a class="pagination-action" href="?page={{ page_obj.previous_page_number }}&offset={{offset|add:limit_reverse}}">
+    <i class="fa-solid fa-angle-left"></i>
+  </a>
+  {% endif %}
+  
+  {% for page in page_obj.paginator.page_range  %}
+  
+    {% if page_obj.number == page  %}
+      <span>{{ page }}</span>
+    {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+  {% endfor %}
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}&offset={{offset|add:limit}}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}&offset={{ max_offset }}">last &raquo;</a>
-        {% endif %}
-    </span>
-  </div>
-{% endif %}
+  {% if page_obj.has_next %}
+      <a class="pagination-action" href="?page={{ page_obj.next_page_number }}&offset={{offset|add:limit}}">
+        <i class="fa-solid fa-angle-right"></i>
+      </a>
+      <a class="pagination-action" href="?page={{ page_obj.paginator.num_pages }}&offset={{ max_offset }}">
+        <i class="fa-solid fa-angles-right"></i>
+      </a>
+  {% endif %}
+</div>

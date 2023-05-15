@@ -1,15 +1,19 @@
-{% extends 'global/base.html' %}
+{% extends 'global/base.html' %} 
+{% block content %} 
 
-{% block content %}
+<div class="cards">
+    {% for pokemon in pokemons %}
 
-<h1>POKEDEX</h1>
+    <a href="{% url 'pokedex:pokemon' pokemon.poke_id pokemon.name %}">
+    <div class="poke-card {{ pokemon.type }}">
+      <div class="poke-content">
+        <img class="poke-image" src="{{ pokemon.image_default }}" alt="{{ pokemon.name }}">
+        <h1> {{ pokemon.poke_id }} - {{ pokemon.name }} </h1>
+        <span> <b>{{ pokemon.type }}</b> </span>
+      </div>
+    </div>
+  </a>
 
-{% for pokemon in pokemons  %}
-
-<h2> {{ pokemon.poke_id }} - {{ pokemon.name }}  </h2>
-
-<img src="{{pokemon.image_default}}" alt="{{ pokemon.name }}">
-
-{% endfor %}
+{% endfor %} 
 
 {% endblock content %}

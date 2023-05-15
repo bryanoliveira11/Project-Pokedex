@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 import requests
 from cachetools import cached, TTLCache
 
-cache = TTLCache(maxsize=128, ttl=3600)  # creating cache
+cache = TTLCache(maxsize=256, ttl=3600)  # creating cache
 
 
 @cached(cache)  # saving results in cache
@@ -15,8 +15,8 @@ def get_pokemon_data(pokemon_name):
 
 
 def index(request):
-    MAX_OFFSET = 144  # max offset in api
-    LIMIT = 16  # limit per page / number to advance in endpoint
+    MAX_OFFSET = 150  # max offset in api
+    LIMIT = 15  # limit per page / number to advance in endpoint
     LIMIT_REVERSE = (LIMIT * -1)
 
     offset = int(request.GET.get('offset', 0))
@@ -38,13 +38,15 @@ def index(request):
 
         # getting pokemon data
         pokemon_data = get_pokemon_data(pokemon_name)
-        pokemon_image = pokemon_data['sprites']['front_default']
         pokemon_id = pokemon_data['id']  # getting the id
+        pokemon_image = pokemon_data['sprites']['front_default']
+        pokemon_type = pokemon_data['types'][0]['type']['name']
 
         pokemon_data = {  # creating and inserting data in the dict
                 'poke_id': pokemon_id,
                 'name': pokemon_name,
                 'image_default': pokemon_image,
+                'type': pokemon_type,
             }
 
         pokemons.append(pokemon_data)  # appending to a list
@@ -56,7 +58,7 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     if offset == MAX_OFFSET:  # using pop to remove pokemons that i didn't want
-        for i in range(9):
+        for i in range(14):
             pokemons.pop()
 
     context = {
@@ -70,3 +72,15 @@ def index(request):
     }
 
     return render(request, 'pokedex/index.html', context)
+
+
+def pokemon(request, poke_id, poke_name):
+
+    context = {
+        'poke_id': poke_id,
+        'poke_name': poke_name
+    }
+
+    print(poke_id)
+
+    return render(request, 'pokedex/pokemon.html', context)
