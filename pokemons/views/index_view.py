@@ -47,6 +47,7 @@ def index(request):
                 'name': pokemon_name,
                 'image_default': pokemon_image,
                 'type': pokemon_type,
+                'type_img': f"global/imgs/{pokemon_type}.png",
             }
 
         pokemons.append(pokemon_data)  # appending to a list
@@ -72,15 +73,3 @@ def index(request):
     }
 
     return render(request, 'pokedex/index.html', context)
-
-
-def pokemon(request, poke_id, poke_name):
-
-    context = {
-        'poke_id': poke_id,
-        'poke_name': poke_name
-    }
-
-    print(poke_id)
-
-    return render(request, 'pokedex/pokemon.html', context)
