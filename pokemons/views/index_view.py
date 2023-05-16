@@ -24,6 +24,11 @@ def index(request):
     if not offset % LIMIT == 0 or offset > MAX_OFFSET:  # validating offset
         return redirect('pokedex:index')
 
+    if not request.session.get('pokemon_data'):
+        request.session['pokemon_data'] = {}
+
+    session_pokemon_data = request.session['pokemon_data']
+
     # base endpoint to get pokemons
     endpoint_base = requests.get(
         f"https://pokeapi.co/api/v2/pokemon/?limit={LIMIT}&offset={offset}"
@@ -41,16 +46,24 @@ def index(request):
         pokemon_id = pokemon_data['id']  # getting the id
         pokemon_image = pokemon_data['sprites']['front_default']
         pokemon_type = pokemon_data['types'][0]['type']['name']
+        # flake8:noqa
+        pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
 
         pokemon_data = {  # creating and inserting data in the dict
                 'poke_id': pokemon_id,
                 'name': pokemon_name,
                 'image_default': pokemon_image,
+                'artwork': pokemon_artwork,
                 'type': pokemon_type,
-                'type_img': f"global/imgs/{pokemon_type}.png",
+                'type_img_index': f"global/imgs/{pokemon_type}.png",
+                'type_img_pokemon': f"global/poke_types/{pokemon_type}.png",
             }
 
         pokemons.append(pokemon_data)  # appending to a list
+        session_pokemon_data[pokemon_id] = pokemon_data
+
+    request.session['pokemon_data'] = session_pokemon_data
+    request.session.save()
 
     # paginator and calculating the number of pages
     paginator = Paginator(pokemons, 1)

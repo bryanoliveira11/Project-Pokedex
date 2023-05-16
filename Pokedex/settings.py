@@ -127,3 +127,11 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# sessão em dias
+SESSION_COOKIE_AGE = 60 *60 *24 *7
+
+# salvar a cada requisição
+SESSION_SAVE_EVERY_REQUEST = False
+
+INTERNAL_IPS = ['127.0.0.1',]

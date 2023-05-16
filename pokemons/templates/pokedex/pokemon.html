@@ -1,7 +1,26 @@
-{% extends 'global/base.html' %}
+{% extends 'global/base.html' %} 
+{% load static %} 
+{% load filters %}
 
 {% block content %}
 
-fodeu 
+{% for pokemon in single_pokemon  %}
+
+<div id="container-pokemon">
+  <div class="pokemon-details">
+    <h1 id="pokemon-name"> 
+        <p> {{ pokemon.poke_id|format_id }} </p>
+        {{ pokemon.pokemon_name }}
+    </h1>
+    <span>
+        <img src="{% static pokemon.pokemon_type_img %}" alt="Type : {{ pokemon.pokemon_type }}" style="width:45%;"/>
+    </span>
+    </div>
+  <div class="pokemon-imagem">
+    <img src="{{ pokemon.pokemon_artwork }}" alt=" {{ pokemon.pokemon_name }} " />
+  </div>
+</div>
+
+{% endfor %}
 
 {% endblock content %}

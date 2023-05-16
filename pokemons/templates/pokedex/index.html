@@ -5,12 +5,12 @@
 <div class="cards">
     {% for pokemon in pokemons %}
 
-    <a href="{% url 'pokedex:pokemon' pokemon.poke_id pokemon.name %}">
+    <a href="{% url 'pokedex:pokemon' pokemon.poke_id %}">
     <div class="poke-card {{ pokemon.type }}">
       <div class="poke-content">
         <img class="poke-image" src="{{ pokemon.image_default }}" alt="{{ pokemon.name }}">
         <h1> {{ pokemon.poke_id }} - {{ pokemon.name }} </h1>
-        <span> <img src="{% static pokemon.type_img %}" class="typeimg {{pokemon.type}}" alt=""> <b>{{ pokemon.type }}</b> </span>
+        <span> <img src="{% static pokemon.type_img_index %}" class="typeimg {{pokemon.type}}" alt=""> <b>{{ pokemon.type }}</b> </span>
       </div>
     </div>
   </a>

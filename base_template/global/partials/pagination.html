@@ -10,7 +10,7 @@
   {% for page in page_obj.paginator.page_range  %}
   
     {% if page_obj.number == page  %}
-      <span>{{ page }}</span>
+      <span>{{ page }} of {{ page_obj.paginator.num_pages }}</span>
     {% endif %}
 
   {% endfor %}

@@ -17,7 +17,7 @@ body {
   padding: 3.5rem 0 0 1rem;
 }
 
-.cards a{
+.cards a {
   text-decoration: none;
   color: #eee;
 }
@@ -28,10 +28,10 @@ body {
   background: #fffdfdd8;
   border-radius: 11px;
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.918);
-  transition: .3s;
+  transition: 0.3s;
 }
 
-.poke-card:hover{
+.poke-card:hover {
   padding: 6px;
   cursor: pointer;
 }
@@ -49,80 +49,155 @@ body {
   text-transform: capitalize;
 }
 
-.poke-content h1{
+.poke-content h1 {
   font-size: 17px;
 }
 
-.poke-content span{
-  font-size: 14px;  
+.poke-content span {
+  font-size: 14px;
 }
-
 
 /* customising the colors of the cards */
 
-.poke-card.grass{
-  background: linear-gradient(333deg, #52a323 20%, #9ee299  50%);
+.poke-card.grass {
+  background: linear-gradient(333deg, #52a323 20%, #9ee299 50%);
 }
 
-.poke-card.fire{
-  background: linear-gradient(333deg, #ff4040 20%, #da7070  50%);
+.poke-card.fire {
+  background: linear-gradient(333deg, #ff4040 20%, #da7070 50%);
 }
 
-.poke-card.water{
-  background: linear-gradient(333deg, #276bff 20%, #7995d1  50%);
+.poke-card.water {
+  background: linear-gradient(333deg, #276bff 20%, #7995d1 50%);
 }
 
-.poke-card.bug{
-  background: linear-gradient(333deg, #ffbd71c9 20%, #d8b68fc9  50%);
+.poke-card.bug {
+  background: linear-gradient(333deg, #ffbd71c9 20%, #d8b68fc9 50%);
 }
 
-.poke-card.normal{
-  background: linear-gradient(333deg, #7a7a7a 20%, #a3a3a3  50%);
+.poke-card.normal {
+  background: linear-gradient(333deg, #7a7a7a 20%, #a3a3a3 50%);
 }
 
-.poke-card.poison{
+.poke-card.poison {
   background: linear-gradient(333deg, #8336c2 20%, #d1a6eec9 50%);
 }
 
-.poke-card.electric{
+.poke-card.electric {
   background: linear-gradient(333deg, #dbbd14 20%, #f0e39a 50%);
 }
 
-.poke-card.ground{
+.poke-card.ground {
   background: linear-gradient(333deg, #836549 20%, #967e68c9 50%);
 }
 
-.poke-card.fairy{
+.poke-card.fairy {
   background: linear-gradient(333deg, #ff45efc9 20%, #fdbff8c9 50%);
 }
 
-.poke-card.fighting{
+.poke-card.fighting {
   background: linear-gradient(333deg, #5a3131 20%, #755252 50%);
 }
 
-.poke-card.psychic{
+.poke-card.psychic {
   background: linear-gradient(333deg, #ff2aedc9 20%, #f0b6ebc9 50%);
 }
 
-.poke-card.rock{
+.poke-card.rock {
   background: linear-gradient(333deg, #523c27 20%, #7a5b3e 50%);
 }
 
-.poke-card.ghost{
+.poke-card.ghost {
   background: linear-gradient(333deg, #491c68 20%, #783e9e 50%);
 }
 
-.poke-card.ice{
+.poke-card.ice {
   background: linear-gradient(333deg, #2c8eff 20%, #91c4ff 50%);
 }
 
-.poke-card.dragon{
+.poke-card.dragon {
   background: linear-gradient(333deg, #004d4d 20%, #008080 50%);
 }
 
-.typeimg{
+.typeimg {
   width: 15px;
   height: 14px;
+}
+
+.container-pokemon {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 72rem;
+  height: 42rem;
+  background-color: red;
+}
+
+.container-pokemon {
+  display: flex;
+  height: 40rem; /* Defina a altura desejada para a div */
+}
+
+.pokemon-content {
+  display: inline-block;
+  text-align: center;
+  margin: 5rem 0 5rem 0;
+  background-color: blue;
+  width: 50%;
+}
+
+.pokemon-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  width: 50%;
+}
+
+.pokemon-image img {
+  width: 100%;
+  height: 70%;
+}
+
+/* index ends */
+
+#container-pokemon {
+  background: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10rem auto;
+  height: 500px;
+  width: 1000px;
+  display: flex;
+}
+
+.pokemon-details {
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  padding: 30px;
+  height: 100%;
+  float: left;
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+}
+
+#pokemon-name {
+  font-family: "Bebas Neue", cursive;
+  display: block;
+  font-size: 25px;
+  color: #344055;
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+.pokemon-imagem{
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* pagination starts */
@@ -145,7 +220,8 @@ body {
   background-color: #fff;
 }
 
-.pagination-action, .pagination span {
+.pagination-action,
+.pagination span {
   margin: 0 2px;
   display: flex;
   padding: 1px 2px;
@@ -157,4 +233,3 @@ body {
 .pagination-action:hover {
   color: #fd4740;
 }
-
