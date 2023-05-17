@@ -15,9 +15,6 @@
     </div>
     <div class="pokemon-details" id="fade-in-animation">
       <h1 class="pokemon-name">
-        <a href="{% url 'pokedex:index' %}">
-          <img class="pokeball" src="{% static 'global/imgs/pokeball.png' %}" alt="">
-        </a>
         <p>{{ pokemon.poke_id|format_id }}</p>
         <span>
           {{ pokemon.pokemon_name }}

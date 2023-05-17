@@ -27,7 +27,7 @@ li a {
   text-decoration: none;
 }
 
-li a img{
+li a img {
   width: 1.5rem;
 }
 
@@ -179,14 +179,6 @@ p {
   transition: 0.2s;
   color: rgba(58, 58, 58, 0.918);
   cursor: pointer;
-}
-
-.pokeball{
-  transition: .3s;
-}
-
-.pokeball:hover {
-  width: 2.3rem;
 }
 
 .pokedex-return img {
