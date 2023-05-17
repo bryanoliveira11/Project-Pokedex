@@ -7,24 +7,43 @@
 {% for pokemon in single_pokemon %}
  
 <body class="background {{ pokemon.pokemon_type }}">
-  <div class="container-pokemon">
+  <div class="container-pokemon" id="fade-in-animation-container">
     <div class="page-container">
-      <i id="left-page" class="fa-solid fa-angles-left left-page {{ pokemon.pokemon_type }}"></i>
+      <a href="{% url 'pokedex:pokemon' pokemon.poke_id|add:-1 %}">
+        <i id="left-page" class="fa-solid fa-angles-left left-page {{ pokemon.pokemon_type }}"></i>
+      </a>
     </div>
-    <div class="pokemon-details">
+    <div class="pokemon-details" id="fade-in-animation">
       <h1 class="pokemon-name">
         <p>{{ pokemon.poke_id|format_id }}</p>
-        {{ pokemon.pokemon_name }}
+        <span>
+          {{ pokemon.pokemon_name }}
+        </span>
       </h1>
       <span>
         <img src="{% static pokemon.pokemon_type_img %}" class="pokemon-type-image" alt="Type : {{ pokemon.pokemon_type }}"/>
       </span>
     </div>
-    <div class="pokemon-image">
-      <img src="{{ pokemon.pokemon_artwork }}" alt=" {{ pokemon.pokemon_name }} "/>
+    <div class="pokemon-image" id="swipe-in-animation">
+      <img src="{{ pokemon.pokemon_artwork }}" alt=""/>
+    </div>
+    <div class="pokemon-stats" id="swipe-in-animation-stats">
+      <h2> STATS: </h2>
+      <p> HP : {{ pokemon.pokemon_stats.hp }} </p>
+      <p> ATTACK : {{ pokemon.pokemon_stats.attack }} </p>
+      <p> DEFENSE : {{ pokemon.pokemon_stats.defense }} </p>
+      <p> SP-ATTACK : {{ pokemon.pokemon_stats.sp_attack }} </p>
+      <p> SP-DEFENSE : {{ pokemon.pokemon_stats.sp_defense }} </p>
+      <p> SPEED : {{ pokemon.pokemon_stats.speed }} </p>
+      <span class="pokedex-return">
+        <img src="{% static 'global/imgs/pokeball.png' %}" alt="">
+        <a href="{% url 'pokedex:index' %}"> Pokedex </a>
+      </span>
     </div>
     <div class="page-container">
-      <i class="fa-solid fa-angles-right right-page {{ pokemon.pokemon_type }}"></i>
+      <a href="{% url 'pokedex:pokemon' pokemon.poke_id|add:1 %}">
+        <i class="fa-solid fa-angles-right right-page {{ pokemon.pokemon_type }}"></i>
+      </a>
     </div>
   </div>
 </body>

@@ -127,7 +127,7 @@
       236deg,
       rgba(240, 227, 154, 0.94859950816264) 14%,
       rgba(240, 227, 154, 0.9934174353335085) 41%,
-      rgba(222, 189, 4, 1) 54%
+      rgb(192, 164, 5) 54%
     )
     fixed;
 }
@@ -217,11 +217,10 @@
 .fa-angles-left.left-page:hover,
 .fa-angles-right.right-page:hover {
   font-size: 3rem;
-  cursor: pointer;
 }
 
 .fa-angles-left.left-page.grass:hover,
-.fa-angles-right.right-page.grass:hover {
+.fa-angles-right.right-page.grass:hover{
   color: #52a323;
 }
 

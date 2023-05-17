@@ -22,7 +22,7 @@ def index(request):
     offset = int(request.GET.get('offset', 0))
 
     if not offset % LIMIT == 0 or offset > MAX_OFFSET:  # validating offset
-        return redirect('pokedex:error')
+        return redirect('pokedex:index')
 
     # creating key 'pokemon_data' in the session 
     if not request.session.get('pokemon_data'):
@@ -46,8 +46,8 @@ def index(request):
             # getting pokemon data
             pokemon_data = get_pokemon_data(pokemon_name)
             pokemon_id = pokemon_data['id']  # getting the id
-            pokemon_image = pokemon_data['sprites']['front_default']
-            pokemon_type = pokemon_data['types'][0]['type']['name']
+            pokemon_image = pokemon_data['sprites']['front_default']  # getting the image
+            pokemon_type = pokemon_data['types'][0]['type']['name']  # getting the name
             # flake8:noqa
             pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
 
@@ -59,8 +59,15 @@ def index(request):
                     'type': pokemon_type,
                     'type_img_index': f"global/imgs/{pokemon_type}.png",
                     'type_img_pokemon': f"global/poke_types/{pokemon_type}.png",
+                    'stats': {
+                        'hp': pokemon_data['stats'][0]['base_stat'],
+                        'attack': pokemon_data['stats'][1]['base_stat'],
+                        'defense': pokemon_data['stats'][2]['base_stat'],
+                        'sp_attack' : pokemon_data['stats'][3]['base_stat'],
+                        'sp_defense': pokemon_data['stats'][4]['base_stat'],
+                        'speed': pokemon_data['stats'][5]['base_stat'],
+                    }
                 }
-
             pokemons.append(pokemon_data)  # appending to a list
             session_pokemon_data[pokemon_id] = pokemon_data # appending data in the session key dict
             
@@ -69,7 +76,7 @@ def index(request):
     
     request.session['pokemon_data'] = session_pokemon_data # saving data in the session key
     request.session.save()
-    print(results)
+    
     # paginator and calculating the number of pages
     paginator = Paginator(pokemons, 1)
     paginator.count = int(MAX_OFFSET / LIMIT) + 1

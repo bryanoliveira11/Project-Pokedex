@@ -14,7 +14,7 @@ body {
   grid-auto-rows: auto;
   gap: 16px;
   font-family: sans-serif;
-  padding: 3.5rem 0 0 1rem;
+  padding: 2.3rem 0 0 1rem;
 }
 
 .cards a {
@@ -77,48 +77,67 @@ body {
   text-align: center;
   border-radius: 10px;
   overflow: hidden;
-  margin: 8rem auto;
-  height: auto;
+  margin: 6rem auto;
+  height: 35rem;
   width: 60%;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pokemon-details {
-  position: relative;
-  text-align: left;
+  text-align: center;
   overflow: hidden;
   width: 40%;
   text-align: center;
 }
 
 .pokemon-type-image {
-  width: 30%;
-  max-width: 200px;
+  width: 35%;
+  max-width: 250px;
 }
 
 .pokemon-name {
   font-family: "Bebas Neue", cursive;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: #344055;
   padding: 10px;
   text-transform: uppercase;
 }
 
+.pokemon-name img{
+  width: 1.8rem;
+}
+
 .pokemon-image {
-  width: 60%;
+  width: 70%;
   display: flex;
   justify-content: flex-end;
   margin-top: 2rem;
 }
 
 .pokemon-image img {
-  width: 75%;
+  width: 80%;
+}
+
+.pokemon-stats {
+  width: 25%;
+}
+
+.pokemon-stats h2,
+p {
+  font-family: "Bebas Neue", cursive;
+  word-wrap: break-word;
+  font-weight: 600;
+}
+
+.pokemon-stats p {
+  font-size: 0.9rem;
 }
 
 .page-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: fit-content;
   max-width: 100px;
 }
@@ -129,6 +148,72 @@ body {
   margin: 0.7rem;
   transition: 0.2s;
   color: rgba(58, 58, 58, 0.918);
+  cursor: pointer;
+}
+
+.pokedex-return{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  transition: .2s;
+}
+
+.pokedex-return a{
+  font-size: 1.5rem;
+  color: #2c2c2c;
+  text-decoration: none;
+  padding: 1rem;
+}
+
+.pokedex-return a:hover{
+  color: #fd4740;
+}
+
+.pokedex-return img{
+  width: 2.5rem;
+}
+
+/* some animations */
+
+@keyframes swipe-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+#swipe-in-animation {
+  animation: swipe-in 1s;
+}
+
+#swipe-in-animation-stats {
+  animation: swipe-in 1s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#fade-in-animation {
+  animation: fade-in 0.6s;
+}
+
+#fade-in-animation-container {
+  animation: fade-in 0.3s;
 }
 
 /* error page */
@@ -223,6 +308,8 @@ p {
 @media (max-width: 1200px) {
   .container-pokemon {
     display: block;
+    height: auto;
+    margin: 1rem auto;
   }
   .pokemon-details {
     width: 100%;
@@ -239,11 +326,6 @@ p {
   .pokemon-image img {
     width: 65%;
   }
-
-  .pokemon-type-image {
-    width: 20%;
-    max-width: 200px;
-  }
   .page-container {
     display: inline-block;
   }
@@ -255,11 +337,25 @@ p {
   .fa-angles-right.right-page:hover {
     font-size: 2.3rem;
   }
+  .pokemon-stats {
+    width: 100%;
+  }
+  .pokemon-name,
+  .pokemon-stats h2 {
+    font-size: 1.2rem;
+  }
+  .pokemon-type-image {
+    width: 30%;
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 600px) {
   .pokemon-type-image {
     width: 30%;
     max-width: 200px;
+  }
+  .pokemon-stats p {
+    font-size: 0.7rem;
   }
 }
