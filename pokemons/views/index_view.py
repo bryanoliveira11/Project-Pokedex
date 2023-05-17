@@ -22,7 +22,7 @@ def index(request):
     offset = int(request.GET.get('offset', 0))
 
     if not offset % LIMIT == 0 or offset > MAX_OFFSET:  # validating offset
-        return redirect('pokedex:index')
+        return redirect('pokedex:error')
 
     # creating key 'pokemon_data' in the session 
     if not request.session.get('pokemon_data'):
@@ -30,42 +30,46 @@ def index(request):
 
     session_pokemon_data = request.session['pokemon_data']
 
-    # base endpoint to get pokemons
-    endpoint_base = requests.get(
-        f"https://pokeapi.co/api/v2/pokemon/?limit={LIMIT}&offset={offset}"
-        )
+    try:
+        # base endpoint to get pokemons
+        endpoint_base = requests.get(
+            f"https://pokeapi.co/api/v2/pokemon/?limit={LIMIT}&offset={offset}"
+            )
 
-    results = endpoint_base.json()['results']  # getting the results key
+        results = endpoint_base.json()['results']  # getting the results key
 
-    pokemons = []
+        pokemons = []
 
-    for result in results:
-        pokemon_name = result['name']
+        for result in results:
+            pokemon_name = result['name']
 
-        # getting pokemon data
-        pokemon_data = get_pokemon_data(pokemon_name)
-        pokemon_id = pokemon_data['id']  # getting the id
-        pokemon_image = pokemon_data['sprites']['front_default']
-        pokemon_type = pokemon_data['types'][0]['type']['name']
-        # flake8:noqa
-        pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
+            # getting pokemon data
+            pokemon_data = get_pokemon_data(pokemon_name)
+            pokemon_id = pokemon_data['id']  # getting the id
+            pokemon_image = pokemon_data['sprites']['front_default']
+            pokemon_type = pokemon_data['types'][0]['type']['name']
+            # flake8:noqa
+            pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
 
-        pokemon_data = {  # creating and inserting data in the dict
-                'poke_id': pokemon_id,
-                'name': pokemon_name,
-                'image_default': pokemon_image,
-                'artwork': pokemon_artwork,
-                'type': pokemon_type,
-                'type_img_index': f"global/imgs/{pokemon_type}.png",
-                'type_img_pokemon': f"global/poke_types/{pokemon_type}.png",
-            }
+            pokemon_data = {  # creating and inserting data in the dict
+                    'poke_id': pokemon_id,
+                    'name': pokemon_name,
+                    'image_default': pokemon_image,
+                    'artwork': pokemon_artwork,
+                    'type': pokemon_type,
+                    'type_img_index': f"global/imgs/{pokemon_type}.png",
+                    'type_img_pokemon': f"global/poke_types/{pokemon_type}.png",
+                }
 
-        pokemons.append(pokemon_data)  # appending to a list
-        session_pokemon_data[pokemon_id] = pokemon_data # appending data in the session key dict
-
+            pokemons.append(pokemon_data)  # appending to a list
+            session_pokemon_data[pokemon_id] = pokemon_data # appending data in the session key dict
+            
+    except Exception: # redirecting to an error url if the api is not working
+        return redirect('pokedex:error')
+    
     request.session['pokemon_data'] = session_pokemon_data # saving data in the session key
     request.session.save()
-
+    print(results)
     # paginator and calculating the number of pages
     paginator = Paginator(pokemons, 1)
     paginator.count = int(MAX_OFFSET / LIMIT) + 1

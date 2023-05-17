@@ -32,11 +32,12 @@ def pokemon(request, poke_id):
 
         context = {
             'single_pokemon': single_pokemon,
+            'poke_id': poke_id,
             'site_title': f"{pokemon_name} |",
         }
 
-    # return to index in case of errors requesting
+    # return to error page in case of problem when requesting
     except Exception:
-        return redirect('pokedex:index')
+        return redirect('pokedex:error')
 
     return render(request, 'pokedex/pokemon.html', context)

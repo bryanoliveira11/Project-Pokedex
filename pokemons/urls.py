@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('pokemon/poke_id=<int:poke_id>/',
          views.pokemon, name='pokemon'),
+    path('pokedex/error/', views.error, name='error')
 ]

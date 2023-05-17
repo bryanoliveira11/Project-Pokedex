@@ -1,0 +1,15 @@
+{% extends 'global/base.html' %}
+{% load static %}
+
+{% block content %}
+<body class='background normal'>
+    <div class="error-container">
+        <div class="error-content">
+        <img src="{% static 'global/imgs/pikachu-shocked-face.gif'%}" alt="error image" style="width: 15rem;"/>
+          <h2>An Error Has Ocurred !</h2>
+          <p>Error While Acessing PokeAPI.</p>
+          <a class="btn-redirect" href="{% url 'pokedex:index' %}" style="font-size: 20px;"> Try Again </a> 
+        </div>
+    </div>
+</body>
+{% endblock content %}

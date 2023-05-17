@@ -8,6 +8,9 @@
 
 <body class="background {{ pokemon.pokemon_type }}">
   <div class="container-pokemon">
+    <div class="page-container">
+      <i id="left-page" class="fa-solid fa-angles-left left-page {{ pokemon.pokemon_type }}"></i>
+    </div>
     <div class="pokemon-details">
       <h1 class="pokemon-name">
         <p>{{ pokemon.poke_id|format_id }}</p>
@@ -19,6 +22,9 @@
     </div>
     <div class="pokemon-image">
       <img src="{{ pokemon.pokemon_artwork }}" alt=" {{ pokemon.pokemon_name }} "/>
+    </div>
+    <div class="page-container">
+      <i class="fa-solid fa-angles-right right-page {{ pokemon.pokemon_type }}"></i>
     </div>
   </div>
 </body>
