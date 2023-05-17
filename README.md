@@ -1,5 +1,5 @@
 ﻿# Project-Pokedex
-Pokedex Feita em Django-Python Usando Requests na Poke API
+Pokedex Feita em Django-Python Usando Requests na Poke API <br/>
 Pokedex in Django-Python Using Requests in Poke API
 
 Tecnologias Usadas :
