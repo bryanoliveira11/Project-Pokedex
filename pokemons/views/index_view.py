@@ -24,6 +24,7 @@ def index(request):
     if not offset % LIMIT == 0 or offset > MAX_OFFSET:  # validating offset
         return redirect('pokedex:index')
 
+    # creating key 'pokemon_data' in the session 
     if not request.session.get('pokemon_data'):
         request.session['pokemon_data'] = {}
 
@@ -60,9 +61,9 @@ def index(request):
             }
 
         pokemons.append(pokemon_data)  # appending to a list
-        session_pokemon_data[pokemon_id] = pokemon_data
+        session_pokemon_data[pokemon_id] = pokemon_data # appending data in the session key dict
 
-    request.session['pokemon_data'] = session_pokemon_data
+    request.session['pokemon_data'] = session_pokemon_data # saving data in the session key
     request.session.save()
 
     # paginator and calculating the number of pages

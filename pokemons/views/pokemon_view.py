@@ -2,15 +2,22 @@ from django.shortcuts import render, redirect
 
 
 def pokemon(request, poke_id):
+
+    if poke_id > 151 or poke_id < 1:  # validating poke_id in url
+        return redirect('pokedex:index')
+
     try:
+        # get the session dict data
         sessionPokemons = request.session.get('pokemon_data', {})
 
+        # data to create other dict for a single pokemon
         pokemon_name = sessionPokemons[str(poke_id)]['name']
         pokemon_image = sessionPokemons[str(poke_id)]['image_default']
         pokemon_type = sessionPokemons[str(poke_id)]['type']
         pokemon_type_img = sessionPokemons[str(poke_id)]['type_img_pokemon']
         pokemon_artwork = sessionPokemons[str(poke_id)]['artwork']
 
+        # creating the dict
         single_pokemon_dict = {
             'poke_id': poke_id,
             'pokemon_name': pokemon_name,
@@ -24,9 +31,11 @@ def pokemon(request, poke_id):
         single_pokemon.append(single_pokemon_dict)
 
         context = {
-            'single_pokemon': single_pokemon
+            'single_pokemon': single_pokemon,
+            'site_title': f"{pokemon_name} |",
         }
 
+    # return to index in case of errors requesting
     except Exception:
         return redirect('pokedex:index')
 
