@@ -15,6 +15,9 @@
     </div>
     <div class="pokemon-details" id="fade-in-animation">
       <h1 class="pokemon-name">
+        <a href="{% url 'pokedex:index' %}">
+          <img class="pokeball" src="{% static 'global/imgs/pokeball.png' %}" alt="">
+        </a>
         <p>{{ pokemon.poke_id|format_id }}</p>
         <span>
           {{ pokemon.pokemon_name }}
@@ -35,10 +38,6 @@
       <p> SP-ATTACK : {{ pokemon.pokemon_stats.sp_attack }} </p>
       <p> SP-DEFENSE : {{ pokemon.pokemon_stats.sp_defense }} </p>
       <p> SPEED : {{ pokemon.pokemon_stats.speed }} </p>
-      <span class="pokedex-return">
-        <img src="{% static 'global/imgs/pokeball.png' %}" alt="">
-        <a href="{% url 'pokedex:index' %}"> Pokedex </a>
-      </span>
     </div>
     <div class="page-container">
       <a href="{% url 'pokedex:pokemon' pokemon.poke_id|add:1 %}">

@@ -5,6 +5,36 @@ body {
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ffffff75;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 7px 9px;
+  text-decoration: none;
+}
+
+li a img{
+  width: 1.5rem;
+}
+
+li a:hover {
+  background-color: #ffffff;
+}
+
 .cards {
   margin: 0 auto;
   max-width: 1200px;
@@ -105,7 +135,7 @@ body {
   text-transform: uppercase;
 }
 
-.pokemon-name img{
+.pokemon-name img {
   width: 1.8rem;
 }
 
@@ -151,26 +181,15 @@ p {
   cursor: pointer;
 }
 
-.pokedex-return{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-  transition: .2s;
+.pokeball{
+  transition: .3s;
 }
 
-.pokedex-return a{
-  font-size: 1.5rem;
-  color: #2c2c2c;
-  text-decoration: none;
-  padding: 1rem;
+.pokeball:hover {
+  width: 2.3rem;
 }
 
-.pokedex-return a:hover{
-  color: #fd4740;
-}
-
-.pokedex-return img{
+.pokedex-return img {
   width: 2.5rem;
 }
 
