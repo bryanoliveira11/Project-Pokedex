@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .index_view import get_pokemon_data
 
 
@@ -21,6 +21,9 @@ def pokemon(request, poke_id):
         pokemon_type_img = sessionPokemons[str(poke_id)]['type_img_pokemon']
         pokemon_artwork = sessionPokemons[str(poke_id)]['artwork']
         pokemon_stats = sessionPokemons[str(poke_id)]['stats']
+        
+        if not request.get(pokemon_artwork):
+            return redirect('pokedex:error')
 
         # creating the dict
         single_pokemon_dict = {
@@ -43,30 +46,33 @@ def pokemon(request, poke_id):
 
     # doing a request in the poke_id in case of exceptions
     except Exception:
-        pokemon_data = get_pokemon_data(poke_id)
-        pokemon_id = pokemon_data['id'] 
-        pokemon_name = pokemon_data['name']
-        pokemon_image = pokemon_data['sprites']['front_default']
-        pokemon_type = pokemon_data['types'][0]['type']['name']
-        # flake8:noqa
-        pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
-        
-        pokemon_data = {  # creating and inserting data in the dict
-                    'poke_id': pokemon_id,
-                    'pokemon_name': pokemon_name,
-                    'pokemon_image': pokemon_image,
-                    'pokemon_artwork': pokemon_artwork,
-                    'pokemon_type': pokemon_type,
-                    'pokemon_type_img': f"global/poke_types/{pokemon_type}.png",
-                    'pokemon_stats': {
-                        'hp': pokemon_data['stats'][0]['base_stat'],
-                        'attack': pokemon_data['stats'][1]['base_stat'],
-                        'defense': pokemon_data['stats'][2]['base_stat'],
-                        'sp_attack' : pokemon_data['stats'][3]['base_stat'],
-                        'sp_defense': pokemon_data['stats'][4]['base_stat'],
-                        'speed': pokemon_data['stats'][5]['base_stat'],
+        try:
+            pokemon_data = get_pokemon_data(poke_id)
+            pokemon_id = pokemon_data['id'] 
+            pokemon_name = pokemon_data['name']
+            pokemon_image = pokemon_data['sprites']['front_default']
+            pokemon_type = pokemon_data['types'][0]['type']['name']
+            # flake8:noqa
+            pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
+
+            pokemon_data = {  # creating and inserting data in the dict
+                        'poke_id': pokemon_id,
+                        'pokemon_name': pokemon_name,
+                        'pokemon_image': pokemon_image,
+                        'pokemon_artwork': pokemon_artwork,
+                        'pokemon_type': pokemon_type,
+                        'pokemon_type_img': f"global/poke_types/{pokemon_type}.png",
+                        'pokemon_stats': {
+                            'hp': pokemon_data['stats'][0]['base_stat'],
+                            'attack': pokemon_data['stats'][1]['base_stat'],
+                            'defense': pokemon_data['stats'][2]['base_stat'],
+                            'sp_attack' : pokemon_data['stats'][3]['base_stat'],
+                            'sp_defense': pokemon_data['stats'][4]['base_stat'],
+                            'speed': pokemon_data['stats'][5]['base_stat'],
+                        }
                     }
-                }
+        except Exception: # return to page error
+            return redirect('pokedex:error')
         
         pokemon = []
         pokemon.append(pokemon_data)  # appending to a list
