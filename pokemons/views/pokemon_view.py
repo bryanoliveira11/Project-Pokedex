@@ -15,12 +15,12 @@ def pokemon(request, poke_id):
         sessionPokemons = request.session.get('pokemon_data', {})
 
         # data to create other dict for a single pokemon
-        pokemon_name = sessionPokemons[str(poke_id)]['name']
-        pokemon_image = sessionPokemons[str(poke_id)]['image_default']
-        pokemon_type = sessionPokemons[str(poke_id)]['type']
-        pokemon_type_img = sessionPokemons[str(poke_id)]['type_img_pokemon']
-        pokemon_artwork = sessionPokemons[str(poke_id)]['artwork']
-        pokemon_stats = sessionPokemons[str(poke_id)]['stats']
+        pokemon_name = sessionPokemons[str(poke_id)].get('name')
+        pokemon_image = sessionPokemons[str(poke_id)].get('image_default')
+        pokemon_type = sessionPokemons[str(poke_id)].get('type')
+        pokemon_type_img = sessionPokemons[str(poke_id)].get('type_img_pokemon')
+        pokemon_artwork = sessionPokemons[str(poke_id)].get('artwork')
+        pokemon_stats = sessionPokemons[str(poke_id)].get('stats')
         
         if not request.get(pokemon_artwork):
             return redirect('pokedex:error')
@@ -48,12 +48,12 @@ def pokemon(request, poke_id):
     except Exception:
         try:
             pokemon_data = get_pokemon_data(poke_id)
-            pokemon_id = pokemon_data['id'] 
-            pokemon_name = pokemon_data['name']
-            pokemon_image = pokemon_data['sprites']['front_default']
-            pokemon_type = pokemon_data['types'][0]['type']['name']
+            pokemon_id = pokemon_data.get('id') 
+            pokemon_name = pokemon_data.get('name')
+            pokemon_image = pokemon_data.get('sprites').get('front_default')
+            pokemon_type = pokemon_data.get('types')[0].get('type').get('name')
             # flake8:noqa
-            pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
+            pokemon_artwork = pokemon_data.get('sprites').get('other').get('official-artwork').get('front_default')
 
             pokemon_data = {  # creating and inserting data in the dict
                         'poke_id': pokemon_id,
@@ -63,12 +63,12 @@ def pokemon(request, poke_id):
                         'pokemon_type': pokemon_type,
                         'pokemon_type_img': f"global/poke_types/{pokemon_type}.png",
                         'pokemon_stats': {
-                            'hp': pokemon_data['stats'][0]['base_stat'],
-                            'attack': pokemon_data['stats'][1]['base_stat'],
-                            'defense': pokemon_data['stats'][2]['base_stat'],
-                            'sp_attack' : pokemon_data['stats'][3]['base_stat'],
-                            'sp_defense': pokemon_data['stats'][4]['base_stat'],
-                            'speed': pokemon_data['stats'][5]['base_stat'],
+                            'hp': pokemon_data.get('stats')[0].get('base_stat'),
+                            'attack': pokemon_data.get('stats')[1].get('base_stat'),
+                            'defense': pokemon_data.get('stats')[2].get('base_stat'),
+                            'sp_attack' : pokemon_data.get('stats')[3].get('base_stat'),
+                            'sp_defense': pokemon_data.get('stats')[4].get('base_stat'),
+                            'speed': pokemon_data.get('stats')[5].get('base_stat'),
                         }
                     }
         except Exception: # return to page error

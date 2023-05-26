@@ -41,15 +41,15 @@ def index(request):
         pokemons = []
 
         for result in results:
-            pokemon_name = result['name']
+            pokemon_name = result.get('name')
 
             # getting pokemon data
             pokemon_data = get_pokemon_data(pokemon_name)
-            pokemon_id = pokemon_data['id']  # getting the id
-            pokemon_image = pokemon_data['sprites']['front_default']  # getting the image
-            pokemon_type = pokemon_data['types'][0]['type']['name']  # getting the name
+            pokemon_id = pokemon_data.get('id')  # getting the id
+            pokemon_image = pokemon_data.get('sprites').get('front_default')  # getting the image
+            pokemon_type = pokemon_data.get('types')[0].get('type').get('name')  # getting the name
             # flake8:noqa
-            pokemon_artwork = pokemon_data['sprites']['other']['official-artwork']['front_default']
+            pokemon_artwork = pokemon_data.get('sprites').get('other').get('official-artwork').get('front_default')
 
             pokemon_data = {  # creating and inserting data in the dict
                     'poke_id': pokemon_id,
@@ -60,12 +60,12 @@ def index(request):
                     'type_img_index': f"global/imgs/{pokemon_type}.png",
                     'type_img_pokemon': f"global/poke_types/{pokemon_type}.png",
                     'stats': {
-                        'hp': pokemon_data['stats'][0]['base_stat'],
-                        'attack': pokemon_data['stats'][1]['base_stat'],
-                        'defense': pokemon_data['stats'][2]['base_stat'],
-                        'sp_attack' : pokemon_data['stats'][3]['base_stat'],
-                        'sp_defense': pokemon_data['stats'][4]['base_stat'],
-                        'speed': pokemon_data['stats'][5]['base_stat'],
+                        'hp': pokemon_data.get('stats')[0].get('base_stat'),
+                        'attack': pokemon_data.get('stats')[1].get('base_stat'),
+                        'defense': pokemon_data.get('stats')[2].get('base_stat'),
+                        'sp_attack' : pokemon_data.get('stats')[3].get('base_stat'),
+                        'sp_defense': pokemon_data.get('stats')[4].get('base_stat'),
+                        'speed': pokemon_data.get('stats')[5].get('base_stat'),
                     }
                 }
             pokemons.append(pokemon_data)  # appending to a list
